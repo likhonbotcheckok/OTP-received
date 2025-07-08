@@ -1,10 +1,10 @@
 require('dotenv').config();
 const TelegramBot = require('node-telegram-bot-api');
 const fetchOtp = require('./checkOtp');
-const numbers = require('./numbers.json').numbers; // ✅ এই লাইন ঠিক করলাম
+const numbers = require('./numbers.json').numbers; // ✅ numbers array extract
 
 const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
-const sentOtps = {}; // OTP prevent duplicate send
+const sentOtps = {}; // Prevent duplicate OTP send
 
 async function checkAllNumbers() {
   for (const number of numbers) {
@@ -30,3 +30,17 @@ async function checkAllNumbers() {
 setInterval(checkAllNumbers, 10000);
 
 console.log('✅ IVASMS OTP Bot running...');
+
+
+// ✅ PORT SETUP for Render to keep bot live
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.get('/', (req, res) => {
+  res.send('✅ OTP Bot is Live');
+});
+
+app.listen(PORT, () => {
+  console.log(`🌐 Server running on port ${PORT}`);
+});
