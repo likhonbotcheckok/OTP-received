@@ -20,7 +20,10 @@ async function fetchOtp(number) {
     return null;
 
   } catch (err) {
-    console.error(`❌ OTP fetch failed for ${number}:`, err.message);
+    // ❌ Suppress 404 errors only
+    if (err.response?.status !== 404) {
+      console.error(`❌ OTP fetch failed for ${number}:`, err.message);
+    }
     return null;
   }
 }
