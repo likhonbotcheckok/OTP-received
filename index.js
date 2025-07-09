@@ -48,3 +48,6 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`🌐 Server running on port ${PORT}`);
 });
+
+// ✅ Auto message when bot starts
+bot.sendMessage(process.env.GROUP_ID, '🤖 Bot has been activated and is now running.');
